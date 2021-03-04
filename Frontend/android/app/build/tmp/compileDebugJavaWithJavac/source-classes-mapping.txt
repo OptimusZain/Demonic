@@ -1,15 +1,6 @@
-androidx/viewpager2/R.java
- androidx.viewpager2.R
- androidx.viewpager2.R$attr
- androidx.viewpager2.R$color
- androidx.viewpager2.R$dimen
- androidx.viewpager2.R$drawable
- androidx.viewpager2.R$id
- androidx.viewpager2.R$integer
- androidx.viewpager2.R$layout
- androidx.viewpager2.R$string
- androidx.viewpager2.R$style
- androidx.viewpager2.R$styleable
+com/testapp/MainApplication.java
+ com.testapp.MainApplication
+ com.testapp.MainApplication$1
 androidx/transition/R.java
  androidx.transition.R
  androidx.transition.R$attr
@@ -522,18 +513,8 @@ com/facebook/flipper/plugins/network/R.java
  com.facebook.flipper.plugins.network.R$string
  com.facebook.flipper.plugins.network.R$style
  com.facebook.flipper.plugins.network.R$styleable
-androidx/vectordrawable/animated/R.java
- androidx.vectordrawable.animated.R
- androidx.vectordrawable.animated.R$attr
- androidx.vectordrawable.animated.R$color
- androidx.vectordrawable.animated.R$dimen
- androidx.vectordrawable.animated.R$drawable
- androidx.vectordrawable.animated.R$id
- androidx.vectordrawable.animated.R$integer
- androidx.vectordrawable.animated.R$layout
- androidx.vectordrawable.animated.R$string
- androidx.vectordrawable.animated.R$style
- androidx.vectordrawable.animated.R$styleable
+com/facebook/react/PackageList.java
+ com.facebook.react.PackageList
 com/facebook/fresco/ui/common/R.java
  com.facebook.fresco.ui.common.R
 com/facebook/drawee/R.java
@@ -548,6 +529,8 @@ com/facebook/drawee/R.java
  com.facebook.drawee.R$string
  com.facebook.drawee.R$style
  com.facebook.drawee.R$styleable
+com/BV/LinearGradient/R.java
+ com.BV.LinearGradient.R
 org/webkit/androidjsc/R.java
  org.webkit.androidjsc.R
 com/facebook/nativeimagetranscoder/R.java
@@ -591,10 +574,27 @@ com/swmansion/gesturehandler/react/R.java
  com.swmansion.gesturehandler.react.R$style
  com.swmansion.gesturehandler.react.R$styleable
  com.swmansion.gesturehandler.react.R$xml
-com/testapp/MainApplication.java
- com.testapp.MainApplication
- com.testapp.MainApplication$1
-com/BV/LinearGradient/R.java
- com.BV.LinearGradient.R
-com/facebook/react/PackageList.java
- com.facebook.react.PackageList
+androidx/vectordrawable/animated/R.java
+ androidx.vectordrawable.animated.R
+ androidx.vectordrawable.animated.R$attr
+ androidx.vectordrawable.animated.R$color
+ androidx.vectordrawable.animated.R$dimen
+ androidx.vectordrawable.animated.R$drawable
+ androidx.vectordrawable.animated.R$id
+ androidx.vectordrawable.animated.R$integer
+ androidx.vectordrawable.animated.R$layout
+ androidx.vectordrawable.animated.R$string
+ androidx.vectordrawable.animated.R$style
+ androidx.vectordrawable.animated.R$styleable
+androidx/viewpager2/R.java
+ androidx.viewpager2.R
+ androidx.viewpager2.R$attr
+ androidx.viewpager2.R$color
+ androidx.viewpager2.R$dimen
+ androidx.viewpager2.R$drawable
+ androidx.viewpager2.R$id
+ androidx.viewpager2.R$integer
+ androidx.viewpager2.R$layout
+ androidx.viewpager2.R$string
+ androidx.viewpager2.R$style
+ androidx.viewpager2.R$styleable

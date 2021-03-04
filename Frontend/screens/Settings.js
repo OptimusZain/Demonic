@@ -16,7 +16,7 @@ import SettingsOptions from '../components/SettingsOptions';
 const Settings = (props) => {
   return (
     <View style={styles.screen}>
-      <SettingsOptions icon= option="Account" />
+      <SettingsOptions option="Account" />
       <SettingsOptions option="Notifications" />
       <SettingsOptions option="Privacy" />
       <SettingsOptions option="About" />

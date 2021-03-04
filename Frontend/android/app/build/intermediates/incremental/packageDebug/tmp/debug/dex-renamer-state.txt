@@ -1,4 +1,4 @@
-#Wed Mar 03 17:39:31 PKT 2021
-base.0=C\:\\Users\\LENOVO\\Desktop\\NativeApps\\Practice\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+#Thu Mar 04 12:58:55 PKT 2021
+base.0=C\:\\Users\\LENOVO\\Desktop\\NativeApps\\Demonic\\Frontend\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
