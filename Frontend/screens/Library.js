@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import Colors from '../constants/Colors';
-import MusicList from '../components/MusicItems';
+import MusicList from '../models/MusicItems';
 import MyLists from '../components/List';
 
 const Library = (props) => {

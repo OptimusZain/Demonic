@@ -6,6 +6,7 @@ import Colors from '../constants/Colors';
 import BottomNav from '../navigation/BottomNav';
 import Favorites from '../screens/Favorites';
 import Settings from '../screens/Settings';
+import Users from '../screens/Users';
 
 const Drawer = createDrawerNavigator();
 
@@ -42,6 +43,13 @@ const DrawerNav = (props) => {
       <Drawer.Screen
         name="Settings"
         component={Settings}
+        options={{
+          headerShown: true,
+        }}
+      />
+      <Drawer.Screen
+        name="Users"
+        component={Users}
         options={{
           headerShown: true,
         }}

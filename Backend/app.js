@@ -6,7 +6,7 @@ const path = require("path");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
-const db = require("../MongoDB/db");
+const db = require("../Backend/db");
 const collection = "credentials";
 
 db.connect((err) => {
@@ -14,7 +14,7 @@ db.connect((err) => {
 		console.log("Unable to connect to database");
 		process.exit(1);
 	} else {
-		app.listen(3000, () => {
+		app.listen(3000, async () => {
 			console.log("Connected to database, listening to port 3000");
 			// if (!db.getDB().collection(collection)) {
 			db.getDB().dropDatabase(collection);
@@ -41,34 +41,35 @@ db.connect((err) => {
 								bsonType: "string",
 								description: "only accepting strings",
 							},
-						},
-					},
-				},
-			});
-
-			db.getDB().createCollection("music", {
-				validator: {
-					$jsonSchema: {
-						bsonType: "object",
-						required: ["uri", "name", "artist"],
-						properties: {
-							uri: {
+							Role: {
 								bsonType: "string",
-								description: "Must be a string",
-							},
-
-							name: {
-								bsonType: "string",
-								description: "Must be a string",
-							},
-							artist: {
-								bsonType: "string",
-								description: "Must be a string",
+								description: "only accepting strings",
 							},
 						},
 					},
 				},
 			});
+
+			const salt = await bcrypt.genSalt();
+			const hashedPassword = await bcrypt.hash("admin", salt);
+			const admin = {
+				FirstName: "Zain",
+				LastName: "Raza",
+				Email: "zain@random.com",
+				Password: hashedPassword,
+				Role: "Admin",
+			};
+
+			db.getDB()
+				.collection(collection)
+				.insertOne(admin, (err, result) => {
+					if (err) {
+						console.log(err);
+					} else {
+						console.log("Admin Generated!");
+						console.log(result.ops);
+					}
+				});
 		});
 	}
 });
@@ -93,6 +94,15 @@ const verifyJWT = (req, res, next) => {
 	}
 };
 
+function verifyRole(role) {
+	return (req, res, next) => {
+		if (req.body.Role !== role) {
+			res.json({ auth: true, message: "Access Granted!" });
+		}
+		next();
+	};
+}
+
 app.get("/:email", (req, res) => {
 	const userID = req.params.email;
 
@@ -113,7 +123,7 @@ app.post("/register", async (req, res) => {
 		.collection(collection)
 		.findOne({ Email: req.body.Email });
 
-	console.log(user);
+	// console.log(user);
 
 	if (user !== null) {
 		console.log("email already exists");
@@ -129,6 +139,7 @@ app.post("/register", async (req, res) => {
 			LastName: req.body.LastName,
 			Email: req.body.Email,
 			Password: hashedPassword,
+			Role: req.body.Role,
 		};
 
 		db.getDB()
@@ -136,7 +147,8 @@ app.post("/register", async (req, res) => {
 			.insertOne(user, (err, result) => {
 				if (err) console.log(err);
 				else {
-					console.log(result);
+					console.log("Registration Successful!");
+					console.log(result.ops);
 					res.json({ result: result, document: result.ops[0] });
 				}
 			});
@@ -151,14 +163,14 @@ app.post("/login", async (req, res) => {
 		.collection(collection)
 		.findOne({ Email: Email });
 
-	console.log(User);
+	console.log("Login Successful!");
 	if (User === null) {
 		res.json({ auth: false, message: "User does not exist!", statusCode: 400 });
 	} else {
 		if (await bcrypt.compare(req.body.Password, User.Password)) {
-			const id = User._id; // res.status(200).send({ error: "User exists!", statusCode: 200 });
-			const token = jwt.sign({ id }, process.env.SECRET);
-			// console.log(token);
+			const id = User._id;
+			const role = User.Role;
+			const token = jwt.sign({ id, role }, process.env.SECRET);
 			res.json({ auth: true, token, User });
 		} else {
 			res.json({

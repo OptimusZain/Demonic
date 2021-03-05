@@ -34,6 +34,7 @@ const SignUp = (props) => {
         LastName: lastName,
         Email: email,
         Password: password,
+        Role: 'Basic',
       })
       .then(function (response) {
         props.navigation.popToTop();

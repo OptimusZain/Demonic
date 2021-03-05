@@ -21,6 +21,8 @@ const DrawerCont = (props) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [user, setUser] = useState();
+  const [role, setRole] = useState('');
+  const [admin, setAdmin] = useState(false);
 
   const getUser = async () => {
     await AsyncStorage.getItem('@Email').then((res) => {
@@ -38,6 +40,10 @@ const DrawerCont = (props) => {
           setEmail(res.data.Email);
           setFirstName(res.data.FirstName);
           setLastName(res.data.LastName);
+          setRole(res.data.Role);
+          if (res.data.Role === 'Admin') {
+            setAdmin(true);
+          }
         } catch (err) {
           if (err) console.log(err);
         }
@@ -87,6 +93,16 @@ const DrawerCont = (props) => {
             props.navigation.navigate('Settings');
           }}
         />
+
+        {admin && (
+          <DrawerItems
+            Icon="people"
+            label="Users"
+            onPress={() => {
+              props.navigation.navigate('Users');
+            }}
+          />
+        )}
       </ScrollView>
       <View
         style={{
