@@ -5,7 +5,7 @@ import Colors from '../constants/Colors';
 
 const SettingsOptions = (props) => {
   return (
-    <TouchableOpacity activeOpacity={0.9}>
+    <TouchableOpacity activeOpacity={0.4}>
       <View style={styles.optionsContainer}>
         <Text style={styles.option}> {props.option} </Text>
       </View>

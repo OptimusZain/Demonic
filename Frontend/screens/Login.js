@@ -14,6 +14,7 @@ import Icon from 'react-native-ionicons';
 import axios from 'axios';
 import {Snackbar} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
+import Server from '../constants/Server';
 
 const Login = (props) => {
   const [secure, setSecure] = useState(true);
@@ -28,7 +29,7 @@ const Login = (props) => {
 
   const submitHandler = () => {
     axios
-      .post('http://172.16.0.217:3000/login', {
+      .post('http://' + Server.ip + ':3000/login', {
         Email: email,
         Password: password,
       })
@@ -59,7 +60,7 @@ const Login = (props) => {
       </View>
       <View style={{...styles.rowOne, minHeight: height / 3 + 10}}></View>
       <View style={styles.logo}>
-        <Icon name="logo-octocat" size={100} color={Colors.netflixRed} />
+        <Icon name="logo-octocat" size={100} color={Colors.accent} />
       </View>
 
       <View style={styles.inputContainer}>
@@ -67,7 +68,7 @@ const Login = (props) => {
           <Text
             style={{
               fontSize: 15,
-              color: Colors.netflixRed,
+              color: Colors.accent,
               fontWeight: 'bold',
             }}>
             Email
@@ -82,7 +83,7 @@ const Login = (props) => {
           <Text
             style={{
               fontSize: 15,
-              color: Colors.netflixRed,
+              color: Colors.accent,
               fontWeight: 'bold',
             }}>
             Password
@@ -101,7 +102,7 @@ const Login = (props) => {
           <Icon
             name={secure ? 'eye-off' : 'eye'}
             size={20}
-            color={Colors.netflixRed}
+            color={Colors.accent}
           />
         </TouchableOpacity>
       </View>
@@ -111,8 +112,7 @@ const Login = (props) => {
           props.navigation.navigate('ForgotPassword');
         }}
         style={{alignSelf: 'flex-end', bottom: '8%', right: '13%'}}>
-        <Text
-          style={{color: Colors.netflixRed, textDecorationLine: 'underline'}}>
+        <Text style={{color: Colors.accent, textDecorationLine: 'underline'}}>
           Forgot Password ?
         </Text>
       </TouchableOpacity>
@@ -131,7 +131,6 @@ const Login = (props) => {
         style={{
           flex: 1,
           alignItems: 'center',
-          // backgroundColor: 'blue',
           maxHeight: 28,
           minWidth: 235,
           marginBottom: 50,
@@ -143,7 +142,7 @@ const Login = (props) => {
           style={{
             fontSize: 15,
             textDecorationLine: 'underline',
-            color: Colors.netflixRed,
+            color: Colors.accent,
           }}>
           Don't have an account ? Sign Up
         </Text>
@@ -172,19 +171,18 @@ const styles = StyleSheet.create({
     top: 0,
     position: 'absolute',
     width: '100%',
-    backgroundColor: Colors.netflixRed,
+    backgroundColor: Colors.accent,
     borderBottomRightRadius: 200,
     borderBottomWidth: 0,
-    borderBottomColor: Colors.netflixRed,
+    // borderBottomColor: Colors.accent,
   },
   temp: {
     flex: 2,
     paddingTop: 50,
     width: '100%',
-    backgroundColor: Colors.netflixRed,
+    backgroundColor: Colors.accent,
     borderBottomRightRadius: 200,
     borderBottomWidth: 0,
-    borderBottomColor: Colors.netflixRed,
   },
 
   bottomRightCol: {
@@ -199,7 +197,7 @@ const styles = StyleSheet.create({
   bottomLeftCol: {
     width: '70%',
     maxHeight: '80%',
-    backgroundColor: Colors.netflixRed,
+    backgroundColor: Colors.accent,
     borderWidth: 0,
   },
 
@@ -208,7 +206,7 @@ const styles = StyleSheet.create({
     bottom: '60%',
     paddingHorizontal: 11,
     borderWidth: 10,
-    borderColor: Colors.netflixRed,
+    borderColor: Colors.accent,
     backgroundColor: 'white',
     borderRadius: 200,
   },
@@ -232,7 +230,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     width: 300,
     borderBottomWidth: 2,
-    borderBottomColor: Colors.netflixRed,
+    borderBottomColor: Colors.accent,
   },
 
   buttonContainer: {
@@ -249,7 +247,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,
-    backgroundColor: Colors.netflixRed,
+    backgroundColor: Colors.accent,
     borderRadius: 10,
   },
 

@@ -3,6 +3,7 @@ import {View, StyleSheet, Text, Image} from 'react-native';
 import Colors from '../constants/Colors';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import Server from '../constants/Server';
 
 const SignUp = (props) => {
   const [userID, setUserID] = useState('');
@@ -22,7 +23,7 @@ const SignUp = (props) => {
 
     if (user !== undefined) {
       axios
-        .get('http://172.16.0.217:3000/' + user)
+        .get('http://' + Server.ip + ':3000/user/' + user)
         .then((res) => {
           setUserID(res.data._id);
           setEmail(res.data.Email);
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     width: '100%',
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -2,13 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 app.use(bodyParser.json());
+app.use(express.json());
 const path = require("path");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 const db = require("../Backend/db");
 const collection = "credentials";
-
 db.connect((err) => {
 	if (err) {
 		console.log("Unable to connect to database");
@@ -16,10 +16,8 @@ db.connect((err) => {
 	} else {
 		app.listen(3000, async () => {
 			console.log("Connected to database, listening to port 3000");
-			// if (!db.getDB().collection(collection)) {
-			db.getDB().dropDatabase(collection);
+			await db.getDB().dropDatabase(collection);
 			db.getDB().createCollection("credentials", {
-				// strict: true,
 				validator: {
 					$jsonSchema: {
 						bsonType: "object",
@@ -97,13 +95,13 @@ const verifyJWT = (req, res, next) => {
 function verifyRole(role) {
 	return (req, res, next) => {
 		if (req.body.Role !== role) {
-			res.json({ auth: true, message: "Access Granted!" });
+			res.json({ auth: true, message: "Access Denied!" });
 		}
 		next();
 	};
 }
 
-app.get("/:email", (req, res) => {
+app.get("/user/:email", (req, res) => {
 	const userID = req.params.email;
 
 	db.getDB()
@@ -122,8 +120,6 @@ app.post("/register", async (req, res) => {
 		.getDB()
 		.collection(collection)
 		.findOne({ Email: req.body.Email });
-
-	// console.log(user);
 
 	if (user !== null) {
 		console.log("email already exists");
@@ -182,34 +178,34 @@ app.post("/login", async (req, res) => {
 	}
 });
 
-// app.delete("/:id", (req, res) => {
-// 	const toDoID = req.params.id;
-// 	db.getDB()
-// 		.collection(collection)
-// 		.findOneAndDelete({ _id: db.getPrimaryKey(toDoID) }, (err, result) => {
-// 			if (err) console.log(err);
-// 			else {
-// 				res.json(result);
-// 			}
-// 		});
-// });
+app.get("/users", async (req, res) => {
+	await db
+		.getDB()
+		.collection(collection)
+		.find({ Role: "Basic" })
+		.toArray((err, documents) => {
+			if (err) {
+				console.log("error");
+				console.log(err);
+			} else {
+				console.log(documents);
+				res.json(documents);
+			}
+		});
+});
 
-// app.get("/", (req, res) => {
-// 	res.sendFile(path.join(__dirname, "index.html"));
-// });
-
-// app.get("/credentials", (req, res) => {
-// 	db.getDB()
-// 		.collection(collection)
-// 		.find({})
-// 		.toArray((err, documents) => {
-// 			if (err) console.log(err);
-// 			else {
-// 				console.log(documents);
-// 				res.json(documents);
-// 			}
-// 		});
-// });
+app.post("/delete/:id", verifyRole("Admin"), (req, res) => {
+	const toDoID = req.params.id;
+	console.log(toDoID);
+	db.getDB()
+		.collection(collection)
+		.findOneAndDelete({ _id: db.getPrimaryKey(toDoID) }, (err, result) => {
+			if (err) console.log(err);
+			else {
+				res.json(result);
+			}
+		});
+});
 
 // app.put("/:id", (req, res) => {
 // 	const toDoID = req.params.id;

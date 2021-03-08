@@ -14,7 +14,7 @@ const DrawerNav = (props) => {
   return (
     <Drawer.Navigator
       screenOptions={{
-        headerStyle: {backgroundColor: Colors.primary},
+        headerStyle: {backgroundColor: Colors.dark},
         headerTintColor: 'white',
         headerTitleStyle: {left: 100},
       }}

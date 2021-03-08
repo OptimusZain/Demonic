@@ -15,7 +15,7 @@ const Library = (props) => {
     <View style={styles.screen}>
       <ScrollView
         contentContainerStyle={{
-          minHeight: useWindowDimensions().height * 1.1,
+          minHeight: useWindowDimensions().height * 1.0372,
         }}>
         <MyLists
           MusicList={MusicList}
@@ -41,7 +41,7 @@ const Library = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: Colors.light,
+    backgroundColor: Colors.accent,
   },
 });
 

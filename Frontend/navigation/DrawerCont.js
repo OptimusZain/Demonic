@@ -14,6 +14,7 @@ import Colors from '../constants/Colors';
 import Icon from 'react-native-ionicons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import Server from '../constants/Server';
 
 const DrawerCont = (props) => {
   const [userID, setUserID] = useState('');
@@ -33,7 +34,7 @@ const DrawerCont = (props) => {
   useEffect(() => {
     getUser();
     if (user !== undefined) {
-      axios.get('http://172.16.0.217:3000/' + user).then((res) => {
+      axios.get('http://' + Server.ip + ':3000/user/' + user).then((res) => {
         console.log(user);
         try {
           setUserID(res.data._id);
@@ -86,14 +87,6 @@ const DrawerCont = (props) => {
             props.navigation.navigate('Favorites');
           }}
         />
-        <DrawerItems
-          Icon="settings"
-          label="Settings"
-          onPress={() => {
-            props.navigation.navigate('Settings');
-          }}
-        />
-
         {admin && (
           <DrawerItems
             Icon="people"
@@ -103,6 +96,13 @@ const DrawerCont = (props) => {
             }}
           />
         )}
+        <DrawerItems
+          Icon="settings"
+          label="Settings"
+          onPress={() => {
+            props.navigation.navigate('Settings');
+          }}
+        />
       </ScrollView>
       <View
         style={{
@@ -115,8 +115,8 @@ const DrawerCont = (props) => {
           onPress={() => {
             props.navigation.popToTop();
           }}>
-          <Icon name="log-out" color={Colors.primary} />
-          <Text style={{left: 8, fontSize: 17, color: Colors.primary}}>
+          <Icon name="log-out" color={Colors.accent} />
+          <Text style={{left: 8, fontSize: 17, color: Colors.accent}}>
             Logout
           </Text>
         </TouchableOpacity>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
 
   titleContent: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.accent,
     paddingBottom: 20,
   },
 
@@ -151,11 +151,11 @@ const styles = StyleSheet.create({
   captionUsername: {
     fontSize: 14,
     marginTop: 20,
-    color: 'grey',
+    color: 'white',
   },
 
   captionEmail: {
-    color: 'grey',
+    color: 'white',
     fontSize: 15,
   },
 

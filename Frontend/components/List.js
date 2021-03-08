@@ -40,6 +40,7 @@ const MyLists = (props) => {
         keyExtractor={(item) => item.id}
         renderItem={myRender}
       />
+      <View style={styles.divider}></View>
     </View>
   );
 };
@@ -50,14 +51,21 @@ const styles = StyleSheet.create({
   },
 
   listContainer: {
-    marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
     maxHeight: '40%',
     width: '100%',
-    borderWidth: 1,
-    borderColor: 'black',
-    backgroundColor: Colors.primary,
+    // borderBottomWidth: 0.2,
+    // borderBottomColor: 'white',
+    backgroundColor: Colors.accent,
+    // marginBottom: 2,
+  },
+
+  divider: {
+    backgroundColor: 'white',
+    height: 0.2,
+    width: '90%',
+    alignSelf: 'center',
   },
 
   listItem: {
@@ -69,7 +77,7 @@ const styles = StyleSheet.create({
   thumbnail: {
     height: 120,
     width: 120,
-    marginTop: 20,
+    marginTop: 10,
   },
   textContainer: {
     width: '100%',

@@ -15,7 +15,6 @@ function Navigator(props) {
       <Stack.Navigator
         screenOptions={{
           headerTintColor: 'white',
-          headerStyle: {backgroundColor: Colors.accent},
           headerTitleStyle: {left: 100},
         }}>
         <Stack.Screen

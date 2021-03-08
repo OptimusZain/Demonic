@@ -11,6 +11,7 @@ import Colors from '../constants/Colors';
 import Icon from 'react-native-ionicons';
 import axios from 'axios';
 import {Snackbar} from 'react-native-paper';
+import Server from '../constants/Server';
 
 const SignUp = (props) => {
   const [firstName, setFirstName] = useState();
@@ -29,7 +30,7 @@ const SignUp = (props) => {
     console.log('Profile Created');
 
     axios
-      .post('http://172.16.0.217:3000/register', {
+      .post('http://' + Server.ip + ':3000/register', {
         FirstName: firstName,
         LastName: lastName,
         Email: email,

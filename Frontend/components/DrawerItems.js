@@ -10,7 +10,7 @@ const DrawerItems = (props) => {
         <Icon
           name={props.Icon}
           style={{
-            color: Colors.primary,
+            color: Colors.accent,
             bottom: 6,
             marginLeft: 25,
             marginRight: 10,
@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
 
   DrawerOptions: {
     flexDirection: 'row',
-    // paddingLeft: 4,
     paddingVertical: 20,
   },
 });

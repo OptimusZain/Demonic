@@ -26,8 +26,8 @@ const Navi = () => {
       })}
       tabBarOptions={{
         showLabel: false,
-        activeBackgroundColor: Colors.accent,
-        inactiveBackgroundColor: Colors.primary,
+        activeBackgroundColor: Colors.dark,
+        inactiveBackgroundColor: Colors.light,
         activeTintColor: 'white',
         inactiveTintColor: 'grey',
         style: {
