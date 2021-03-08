@@ -192,7 +192,7 @@ app.get("/users", async (req, res) => {
 				console.log("error");
 				console.log(err);
 			} else {
-				console.log(documents);
+				// console.log(documents);
 				res.json(documents);
 			}
 		});

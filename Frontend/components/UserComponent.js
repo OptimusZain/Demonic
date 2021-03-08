@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Button} from 'react-native';
 import Icon from 'react-native-ionicons';
 import Colors from '../constants/Colors';
+import UserModal from '../components/UserModal';
 
 const UserComponent = (props) => {
+  const [visible, setVisible] = useState(false);
+
+  const pressHandler = () => {
+    setVisible(!visible);
+  };
+
   return (
     <View>
-      <TouchableOpacity onPress={props.onPressItem} activeOpacity={0.5}>
+      <TouchableOpacity onPress={pressHandler} activeOpacity={0.5}>
         <View style={styles.optionsContainer}>
           <Text style={styles.option}> {props.option} </Text>
         </View>
@@ -17,6 +24,12 @@ const UserComponent = (props) => {
         style={styles.button}>
         <Icon name="trash" color={Colors.netflixBlack}></Icon>
       </TouchableOpacity>
+      <UserModal
+        visibility={visible}
+        FirstName={props.FirstName}
+        LastName={props.LastName}
+        modalControl={pressHandler}
+      />
     </View>
   );
 };

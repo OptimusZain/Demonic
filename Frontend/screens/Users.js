@@ -15,6 +15,7 @@ import UserComponent from '../components/UserComponent';
 import axios from 'axios';
 import Server from '../constants/Server';
 import AsyncStorage from '@react-native-community/async-storage';
+import UserModal from '../components/UserModal';
 
 const Users = (props) => {
   const [users, setUsers] = useState([]);
@@ -34,7 +35,6 @@ const Users = (props) => {
 
   useEffect(() => {
     getUsers();
-    getToken();
   }, [users]);
 
   let config = {
@@ -42,7 +42,8 @@ const Users = (props) => {
   };
 
   const deleteHandler = (id) => {
-    console.log('beginning to delete');
+    getToken();
+    console.log('beginning to delete', id);
     axios
       .post('http://' + Server.ip + ':3000/delete/' + id, null, config)
       .then((res) => {
@@ -61,7 +62,8 @@ const Users = (props) => {
       renderItem={({item}) => {
         return (
           <UserComponent
-            onPressItem={() => deleteHandler(item._id)}
+            FirstName={item.FirstName}
+            LastName={item.LastName}
             onPressButton={() =>
               deleteHandler(item._id, (err, res) => {
                 if (err) console.log(err);
