@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+// const cors = require("cors");
+// app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 const path = require("path");
@@ -75,9 +77,7 @@ db.connect((err) => {
 const verifyJWT = (req, res, next) => {
 	const token = req.headers["access-token"];
 
-	if (!token) {
-		res.json({ auth: false, message: "You do not have a token" });
-	} else {
+	if (token) {
 		jwt.verify(token, process.env.SECRET, (err, decoded) => {
 			if (err) {
 				res.json({
@@ -86,16 +86,20 @@ const verifyJWT = (req, res, next) => {
 				});
 			}
 			const id = decoded.id;
+			const role = decoded.role;
 			req.userID = id;
+			req.Role = role;
 			next();
 		});
+	} else {
+		res.json({ auth: false, message: "You do not have a token" });
 	}
 };
 
 function verifyRole(role) {
 	return (req, res, next) => {
-		if (req.body.Role !== role) {
-			res.json({ auth: true, message: "Access Denied!" });
+		if (req.Role !== role) {
+			res.json({ auth: false, message: "Access Denied!" });
 		}
 		next();
 	};
@@ -194,9 +198,9 @@ app.get("/users", async (req, res) => {
 		});
 });
 
-app.post("/delete/:id", verifyRole("Admin"), (req, res) => {
+app.post("/delete/:id", verifyJWT, verifyRole("Admin"), (req, res) => {
 	const toDoID = req.params.id;
-	console.log(toDoID);
+	console.log("About to Delete ", toDoID);
 	db.getDB()
 		.collection(collection)
 		.findOneAndDelete({ _id: db.getPrimaryKey(toDoID) }, (err, result) => {

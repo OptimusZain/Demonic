@@ -213,6 +213,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     marginBottom: '8%',
+    marginTop: 100,
   },
 
   buttonContainer: {

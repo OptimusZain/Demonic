@@ -14,9 +14,17 @@ import Icon from 'react-native-ionicons';
 import UserComponent from '../components/UserComponent';
 import axios from 'axios';
 import Server from '../constants/Server';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Users = (props) => {
   const [users, setUsers] = useState([]);
+  const [token, setToken] = useState();
+
+  const getToken = async () => {
+    await AsyncStorage.getItem('@token').then((res) => {
+      setToken(res);
+    });
+  };
 
   const getUsers = async () => {
     await axios.get('http://' + Server.ip + ':3000/users').then((res) => {
@@ -26,16 +34,23 @@ const Users = (props) => {
 
   useEffect(() => {
     getUsers();
-  }, []);
+    getToken();
+  }, [users]);
+
+  let config = {
+    headers: {'access-token': token},
+  };
 
   const deleteHandler = (id) => {
     console.log('beginning to delete');
-    axios.post('http://' + Server.ip + ':3000/delete/' + id).then((res) => {
-      if (res) {
-        console.log(res.data.value.Email, 'has been removed');
-        getUsers();
-      }
-    });
+    axios
+      .post('http://' + Server.ip + ':3000/delete/' + id, null, config)
+      .then((res) => {
+        if (res) {
+          console.log(res.data.value.Email, 'has been removed');
+          getUsers();
+        }
+      });
   };
 
   return (

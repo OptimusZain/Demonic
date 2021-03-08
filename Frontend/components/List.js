@@ -51,20 +51,19 @@ const styles = StyleSheet.create({
   },
 
   listContainer: {
+    position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
     maxHeight: '40%',
     width: '100%',
-    // borderBottomWidth: 0.2,
-    // borderBottomColor: 'white',
     backgroundColor: Colors.accent,
-    // marginBottom: 2,
   },
 
   divider: {
+    position: 'relative',
     backgroundColor: 'white',
-    height: 0.2,
-    width: '90%',
+    height: 0.53,
+    width: '86%',
     alignSelf: 'center',
   },
 

@@ -22,7 +22,14 @@ function Navigator(props) {
           component={Login}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUp}
+          options={{
+            headerShown: true,
+            headerStyle: {backgroundColor: Colors.accent},
+          }}
+        />
         <Stack.Screen
           name="MainMenu"
           component={DrawerNav}

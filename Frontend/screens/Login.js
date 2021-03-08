@@ -37,7 +37,7 @@ const Login = (props) => {
         if (res.data.auth === true) {
           setVisible(false);
           // console.log(res);
-          // await AsyncStorage.setItem('@token', res.data.token);
+          await AsyncStorage.setItem('@token', res.data.token);
           await AsyncStorage.setItem('@Email', email);
           setEmail('');
           setPassword('');
@@ -58,12 +58,17 @@ const Login = (props) => {
         <View style={styles.bottomLeftCol}></View>
         <View style={styles.bottomRightCol}></View>
       </View>
-      <View style={{...styles.rowOne, minHeight: height / 3 + 10}}></View>
-      <View style={styles.logo}>
+      <View
+        style={{
+          ...styles.rowOne,
+          minHeight: height > 800 ? height / 2.9 : height / 3.1,
+        }}></View>
+      <View style={{...styles.logo, top: height > 800 ? 215 : 170}}>
         <Icon name="logo-octocat" size={100} color={Colors.accent} />
       </View>
 
-      <View style={styles.inputContainer}>
+      <View
+        style={{...styles.inputContainer, bottom: height > 800 ? '8%' : '10%'}}>
         <View style={{alignSelf: 'flex-start'}}>
           <Text
             style={{
@@ -111,7 +116,11 @@ const Login = (props) => {
         onPress={() => {
           props.navigation.navigate('ForgotPassword');
         }}
-        style={{alignSelf: 'flex-end', bottom: '8%', right: '13%'}}>
+        style={{
+          alignSelf: 'flex-end',
+          bottom: height > 800 ? height / 11 : height / 19,
+          right: '13%',
+        }}>
         <Text style={{color: Colors.accent, textDecorationLine: 'underline'}}>
           Forgot Password ?
         </Text>
@@ -173,11 +182,10 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: Colors.accent,
     borderBottomRightRadius: 200,
-    borderBottomWidth: 0,
     // borderBottomColor: Colors.accent,
   },
   temp: {
-    flex: 2,
+    flex: 1.5,
     paddingTop: 50,
     width: '100%',
     backgroundColor: Colors.accent,
@@ -203,7 +211,6 @@ const styles = StyleSheet.create({
 
   logo: {
     position: 'absolute',
-    bottom: '60%',
     paddingHorizontal: 11,
     borderWidth: 10,
     borderColor: Colors.accent,
@@ -223,7 +230,6 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'relative',
     alignSelf: 'center',
-    bottom: '13%',
   },
 
   input: {
@@ -231,15 +237,14 @@ const styles = StyleSheet.create({
     width: 300,
     borderBottomWidth: 2,
     borderBottomColor: Colors.accent,
+    color: Colors.accent,
   },
 
   buttonContainer: {
     flex: 1,
-    position: 'relative',
     marginTop: '1%',
     width: '80%',
     maxHeight: '4.7%',
-    // backgroundColor: 'blue',
     marginBottom: 80,
   },
 
