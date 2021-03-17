@@ -23,7 +23,7 @@ const SignUp = (props) => {
 
     if (user !== undefined) {
       axios
-        .get('http://' + Server.ip + ':3000/user/' + user)
+        .get('https://' + Server.link + '/user/' + user)
         .then((res) => {
           setUserID(res.data._id);
           setEmail(res.data.Email);

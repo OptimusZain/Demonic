@@ -17,20 +17,6 @@ com/testapp/BuildConfig.java
  com.testapp.BuildConfig
 com/facebook/fbcore/R.java
  com.facebook.fbcore.R
-androidx/vectordrawable/R.java
- androidx.vectordrawable.R
- androidx.vectordrawable.R$attr
- androidx.vectordrawable.R$color
- androidx.vectordrawable.R$dimen
- androidx.vectordrawable.R$drawable
- androidx.vectordrawable.R$id
- androidx.vectordrawable.R$integer
- androidx.vectordrawable.R$layout
- androidx.vectordrawable.R$string
- androidx.vectordrawable.R$style
- androidx.vectordrawable.R$styleable
-com/facebook/imagepipelinebase/R.java
- com.facebook.imagepipelinebase.R
 com/testapp/R.java
  com.testapp.R
  com.testapp.R$anim
@@ -51,6 +37,20 @@ com/testapp/R.java
  com.testapp.R$style
  com.testapp.R$styleable
  com.testapp.R$xml
+com/facebook/imagepipelinebase/R.java
+ com.facebook.imagepipelinebase.R
+androidx/vectordrawable/R.java
+ androidx.vectordrawable.R
+ androidx.vectordrawable.R$attr
+ androidx.vectordrawable.R$color
+ androidx.vectordrawable.R$dimen
+ androidx.vectordrawable.R$drawable
+ androidx.vectordrawable.R$id
+ androidx.vectordrawable.R$integer
+ androidx.vectordrawable.R$layout
+ androidx.vectordrawable.R$string
+ androidx.vectordrawable.R$style
+ androidx.vectordrawable.R$styleable
 androidx/lifecycle/livedata/core/R.java
  androidx.lifecycle.livedata.core.R
 com/facebook/imagepipeline/R.java
@@ -67,11 +67,6 @@ androidx/appcompat/resources/R.java
  androidx.appcompat.resources.R$string
  androidx.appcompat.resources.R$style
  androidx.appcompat.resources.R$styleable
-com/facebook/drawee/backends/pipeline/R.java
- com.facebook.drawee.backends.pipeline.R
- com.facebook.drawee.backends.pipeline.R$attr
- com.facebook.drawee.backends.pipeline.R$id
- com.facebook.drawee.backends.pipeline.R$styleable
 com/th3rdwave/safeareacontext/R.java
  com.th3rdwave.safeareacontext.R
  com.th3rdwave.safeareacontext.R$anim
@@ -87,6 +82,11 @@ com/th3rdwave/safeareacontext/R.java
  com.th3rdwave.safeareacontext.R$style
  com.th3rdwave.safeareacontext.R$styleable
  com.th3rdwave.safeareacontext.R$xml
+com/facebook/drawee/backends/pipeline/R.java
+ com.facebook.drawee.backends.pipeline.R
+ com.facebook.drawee.backends.pipeline.R$attr
+ com.facebook.drawee.backends.pipeline.R$id
+ com.facebook.drawee.backends.pipeline.R$styleable
 androidx/arch/core/R.java
  androidx.arch.core.R
 androidx/fragment/R.java
@@ -201,10 +201,10 @@ androidx/drawerlayout/R.java
  androidx.drawerlayout.R$string
  androidx.drawerlayout.R$style
  androidx.drawerlayout.R$styleable
-androidx/versionedparcelable/R.java
- androidx.versionedparcelable.R
 com/facebook/soloader/R.java
  com.facebook.soloader.R
+androidx/versionedparcelable/R.java
+ androidx.versionedparcelable.R
 com/facebook/imagepipeline/backends/okhttp3/R.java
  com.facebook.imagepipeline.backends.okhttp3.R
 androidx/lifecycle/viewmodel/R.java
@@ -360,10 +360,10 @@ com/facebook/drawee/R.java
  com.facebook.drawee.R$attr
  com.facebook.drawee.R$id
  com.facebook.drawee.R$styleable
-com/BV/LinearGradient/R.java
- com.BV.LinearGradient.R
 org/webkit/androidjsc/R.java
  org.webkit.androidjsc.R
+com/BV/LinearGradient/R.java
+ com.BV.LinearGradient.R
 com/facebook/nativeimagetranscoder/R.java
  com.facebook.nativeimagetranscoder.R
 androidx/viewpager/R.java
@@ -378,8 +378,6 @@ androidx/viewpager/R.java
  androidx.viewpager.R$string
  androidx.viewpager.R$style
  androidx.viewpager.R$styleable
-androidx/lifecycle/viewmodel/savedstate/R.java
- androidx.lifecycle.viewmodel.savedstate.R
 com/swmansion/gesturehandler/react/R.java
  com.swmansion.gesturehandler.react.R
  com.swmansion.gesturehandler.react.R$anim
@@ -395,6 +393,8 @@ com/swmansion/gesturehandler/react/R.java
  com.swmansion.gesturehandler.react.R$style
  com.swmansion.gesturehandler.react.R$styleable
  com.swmansion.gesturehandler.react.R$xml
+androidx/lifecycle/viewmodel/savedstate/R.java
+ androidx.lifecycle.viewmodel.savedstate.R
 androidx/vectordrawable/animated/R.java
  androidx.vectordrawable.animated.R
  androidx.vectordrawable.animated.R$attr

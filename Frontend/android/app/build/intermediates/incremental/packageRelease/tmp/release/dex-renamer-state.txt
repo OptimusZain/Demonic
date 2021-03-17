@@ -1,4 +1,4 @@
-#Wed Mar 10 12:35:59 PKT 2021
-base.0=C\:\\Users\\LENOVO\\Desktop\\NativeApps\\Demonic\\Frontend\\android\\app\\build\\intermediates\\transforms\\r8\\release\\0\\classes.dex
-renamed.0=classes.dex
+#Tue Mar 16 18:58:06 PKT 2021
+base.0=/home/zain/Desktop/Demonic/Demonic/Frontend/android/app/build/intermediates/transforms/r8/release/0/classes.dex
 path.0=classes.dex
+renamed.0=classes.dex

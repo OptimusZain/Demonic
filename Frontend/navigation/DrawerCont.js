@@ -34,7 +34,7 @@ const DrawerCont = (props) => {
   useEffect(() => {
     getUser();
     if (user !== undefined) {
-      axios.get('http://' + Server.ip + ':3000/user/' + user).then((res) => {
+      axios.get('https://' + Server.link + '/user/' + user).then((res) => {
         console.log(user);
         try {
           setUserID(res.data._id);
@@ -126,9 +126,7 @@ const DrawerCont = (props) => {
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    // flex: 1,
-  },
+  screen: {},
 
   titleContent: {
     backgroundColor: Colors.accent,

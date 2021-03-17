@@ -30,7 +30,7 @@ const SignUp = (props) => {
     console.log('Profile Created');
 
     axios
-      .post('http://' + Server.ip + ':3000/register', {
+      .post('https://' + Server.link + '/register', {
         FirstName: firstName,
         LastName: lastName,
         Email: email,
