@@ -28,7 +28,7 @@ const Users = (props) => {
   };
 
   const getUsers = async () => {
-    await axios.get('https://' + Server.link + '/users').then((res) => {
+    await axios.get('http://' + Server.ip + '/users').then((res) => {
       setUsers(res.data);
     });
   };
@@ -45,7 +45,7 @@ const Users = (props) => {
     getToken();
     console.log('beginning to delete', id);
     axios
-      .post('https://' + Server.link + '/delete/' + id, null, config)
+      .post('http://' + Server.ip + '/delete/' + id, null, config)
       .then((res) => {
         if (res) {
           console.log(res.data.value.Email, 'has been removed');

@@ -34,7 +34,7 @@ const DrawerCont = (props) => {
   useEffect(() => {
     getUser();
     if (user !== undefined) {
-      axios.get('https://' + Server.link + '/user/' + user).then((res) => {
+      axios.get('http://' + Server.ip + '/user/' + user).then((res) => {
         console.log(user);
         try {
           setUserID(res.data._id);
@@ -57,7 +57,7 @@ const DrawerCont = (props) => {
       <View style={styles.titleContent}>
         <Image
           style={styles.Avatar}
-          source={require('../assets/file.png')}></Image>
+          source={require('../assets/default.png')}></Image>
         <View style={styles.Caption}>
           <Text style={styles.captionUsername}>
             {firstName} {lastName}

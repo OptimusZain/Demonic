@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/zain/Desktop/Demonic/Demonic/Frontend/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
+            "outputFile": "/home/zain/Desktop/Demonic/Frontend/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
                     "source": "/home/zain/.gradle/caches/transforms-3/a61c05d5a6c1f2006f9ece34e758f71d/transformed/appcompat-1.1.0/res/values-night-v8/values-night-v8.xml",

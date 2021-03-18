@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, Image} from 'react-native';
+import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 import Colors from '../constants/Colors';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import Server from '../constants/Server';
+import {RNCamera} from 'react-native-camera';
+import * as Camera from 'react-native-image-picker';
+import Icon from 'react-native-ionicons';
 
 const SignUp = (props) => {
   const [userID, setUserID] = useState('');
@@ -11,6 +14,7 @@ const SignUp = (props) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [user, setUser] = useState();
+  const [uri, setURI] = useState();
 
   const getUser = async () => {
     await AsyncStorage.getItem('@Email').then((res) => {
@@ -18,12 +22,22 @@ const SignUp = (props) => {
     });
   };
 
+  const takePicture = () => {
+    Camera.launchCamera(
+      {saveToPhotos: true, mediaType: 'photo', cameraType: 'front'},
+      (res) => {
+        setURI(res.uri);
+        console.log(res);
+      },
+    );
+  };
+
   useEffect(() => {
     getUser();
 
     if (user !== undefined) {
       axios
-        .get('https://' + Server.link + '/user/' + user)
+        .get('http://' + Server.ip + '/user/' + user)
         .then((res) => {
           setUserID(res.data._id);
           setEmail(res.data.Email);
@@ -43,7 +57,9 @@ const SignUp = (props) => {
       <View style={styles.profileContent}>
         <View style={styles.imageContainer}>
           <Image
-            source={require('../assets/file.png')}
+            source={
+              uri ? {uri: uri.toString()} : require('../assets/default.png')
+            }
             style={styles.profilePicture}
           />
         </View>
@@ -51,6 +67,12 @@ const SignUp = (props) => {
           {' '}
           {firstName} {lastName}{' '}
         </Text>
+        <TouchableOpacity
+          onPress={takePicture}
+          activeOpacity={0.7}
+          style={styles.iconContainer}>
+          <Icon style={styles.cameraIcon} name="camera" color="white"></Icon>
+        </TouchableOpacity>
       </View>
       <View style={styles.mainContent}>
         <View style={styles.textContainer}>
@@ -125,6 +147,19 @@ const styles = StyleSheet.create({
   data: {
     marginLeft: '5%',
     fontSize: 18,
+  },
+
+  iconContainer: {
+    position: 'absolute',
+    padding: 5,
+    // backgroundColor: 'black',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    right: 80,
+    bottom: 30,
+  },
+  cameraIcon: {
+    position: 'relative',
   },
 });
 

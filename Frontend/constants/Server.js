@@ -1,4 +1,4 @@
 export default {
-  ip: '172.16.0.165',
+  ip: '192.168.18.226:3000',
   link: '6d72c62b0685.ngrok.io',
 };

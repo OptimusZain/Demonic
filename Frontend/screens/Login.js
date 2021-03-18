@@ -29,7 +29,7 @@ const Login = (props) => {
 
   const submitHandler = () => {
     axios
-      .post('https://' + Server.link + '/login', {
+      .post('http://' + Server.ip + '/login', {
         Email: email,
         Password: password,
       })
