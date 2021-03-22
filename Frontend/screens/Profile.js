@@ -4,21 +4,79 @@ import Colors from '../constants/Colors';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import Server from '../constants/Server';
-import {RNCamera} from 'react-native-camera';
+// import {RNCamera} from 'react-native-camera';
 import * as Camera from 'react-native-image-picker';
 import Icon from 'react-native-ionicons';
+// import 'multer';
 
 const SignUp = (props) => {
-  const [userID, setUserID] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [user, setUser] = useState();
-  const [uri, setURI] = useState();
+  const [image, setImage] = useState();
+  const [userInfo, setUserInfo] = useState({});
 
-  const getUser = async () => {
-    await AsyncStorage.getItem('@Email').then((res) => {
-      setUser(res);
+  useEffect(() => {
+    const getUser = async () => {
+      await AsyncStorage.getItem('@Email').then((res) => {
+        fetchProfile(res);
+      });
+    };
+    getUser();
+  }, []);
+
+  const fetchProfile = (user) => {
+    axios
+      .get('http://' + Server.ip + '/user/' + user)
+      .then((res) => {
+        setUserInfo({
+          id: res.data._id,
+          email: res.data.Email,
+          firstName: res.data.FirstName,
+          lastName: res.data.LastName,
+          uri: res.data.uri,
+        });
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+  };
+
+  const fetchImage = (path) => {
+    console.log('fetching Image', path);
+    axios
+      .get('http://' + Server.ip + '/api/images/' + path)
+      .then((res) => {
+        console.log('Received Image: ', res);
+        setImage(res);
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+  };
+
+  const sendData = async (img) => {
+    console.log(img);
+
+    let photo = {
+      uri: img.uri,
+      type: img.type,
+      name: img.fileName,
+    };
+
+    const data = new FormData();
+    data.append('email', userInfo.email);
+    data.append('image', photo);
+    console.log(data);
+    axios.post('http://' + Server.ip + '/img', data).then((res) => {
+      if (res.data.statusCode === 200) {
+        console.log(res.data.message);
+        const path = res.data.path;
+        fetchImage(path);
+      } else {
+        console.log(res);
+      }
     });
   };
 
@@ -26,31 +84,15 @@ const SignUp = (props) => {
     Camera.launchCamera(
       {saveToPhotos: true, mediaType: 'photo', cameraType: 'front'},
       (res) => {
-        setURI(res.uri);
-        console.log(res);
+        if (res.didCancel === true) {
+          console.log('Picture Cancelled');
+        } else {
+          console.log(res.uri);
+          sendData(res);
+        }
       },
     );
   };
-
-  useEffect(() => {
-    getUser();
-
-    if (user !== undefined) {
-      axios
-        .get('http://' + Server.ip + '/user/' + user)
-        .then((res) => {
-          setUserID(res.data._id);
-          setEmail(res.data.Email);
-          setFirstName(res.data.FirstName);
-          setLastName(res.data.LastName);
-        })
-        .catch((err) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-    }
-  }, [user]);
 
   return (
     <View style={styles.screen}>
@@ -58,14 +100,16 @@ const SignUp = (props) => {
         <View style={styles.imageContainer}>
           <Image
             source={
-              uri ? {uri: uri.toString()} : require('../assets/default.png')
+              userInfo.uri
+                ? {uri: userInfo.uri}
+                : require('../assets/default.png')
             }
             style={styles.profilePicture}
           />
         </View>
         <Text style={styles.profileName}>
           {' '}
-          {firstName} {lastName}{' '}
+          {userInfo.firstName} {userInfo.lastName}{' '}
         </Text>
         <TouchableOpacity
           onPress={takePicture}
@@ -77,7 +121,7 @@ const SignUp = (props) => {
       <View style={styles.mainContent}>
         <View style={styles.textContainer}>
           <Text style={{fontSize: 17}}> Email: </Text>
-          <Text style={styles.data}>{email}</Text>
+          <Text style={styles.data}>{userInfo.email}</Text>
         </View>
         <View style={styles.textContainer}>
           <Text style={{fontSize: 17}}> Phone: </Text>

@@ -17,31 +17,24 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Server from '../constants/Server';
 
 const DrawerCont = (props) => {
-  const [userID, setUserID] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
   const [user, setUser] = useState();
-  const [role, setRole] = useState('');
   const [admin, setAdmin] = useState(false);
+  const [userObj, setUserObj] = useState({});
 
-  const getUser = async () => {
-    await AsyncStorage.getItem('@Email').then((res) => {
-      setUser(res);
-    });
-  };
-
-  useEffect(() => {
-    getUser();
+  const fetchUser = () => {
     if (user !== undefined) {
       axios.get('http://' + Server.ip + '/user/' + user).then((res) => {
         console.log(user);
+
         try {
-          setUserID(res.data._id);
-          setEmail(res.data.Email);
-          setFirstName(res.data.FirstName);
-          setLastName(res.data.LastName);
-          setRole(res.data.Role);
+          setUserObj({
+            id: res.data._id,
+            email: res.data.Email,
+            firstName: res.data.FirstName,
+            lastName: res.data.LastName,
+            role: res.data.Role,
+          });
+
           if (res.data.Role === 'Admin') {
             setAdmin(true);
           }
@@ -50,6 +43,16 @@ const DrawerCont = (props) => {
         }
       });
     }
+  };
+
+  useEffect(() => {
+    const getUser = async () => {
+      await AsyncStorage.getItem('@Email').then((res) => {
+        setUser(res);
+      });
+    };
+    getUser();
+    fetchUser();
   }, [user]);
 
   return (
@@ -60,9 +63,9 @@ const DrawerCont = (props) => {
           source={require('../assets/default.png')}></Image>
         <View style={styles.Caption}>
           <Text style={styles.captionUsername}>
-            {firstName} {lastName}
+            {userObj.firstName} {userObj.lastName}
           </Text>
-          <Text style={styles.captionEmail}>{email}</Text>
+          <Text style={styles.captionEmail}>{userObj.email}</Text>
         </View>
       </View>
       <ScrollView style={styles.mainContent}>

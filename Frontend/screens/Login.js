@@ -80,6 +80,7 @@ const Login = (props) => {
           </Text>
         </View>
         <TextInput
+          autoCapitalize="none"
           value={email}
           style={styles.input}
           onChangeText={(e) => setEmail(e)}
