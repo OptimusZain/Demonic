@@ -10,7 +10,6 @@ import Icon from 'react-native-ionicons';
 // import 'multer';
 
 const SignUp = (props) => {
-  const [image, setImage] = useState();
   const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
@@ -31,7 +30,7 @@ const SignUp = (props) => {
           email: res.data.Email,
           firstName: res.data.FirstName,
           lastName: res.data.LastName,
-          uri: res.data.uri,
+          uri: 'http://' + Server.ip + '/api/' + res.data.uri,
         });
       })
       .catch((err) => {
@@ -44,10 +43,11 @@ const SignUp = (props) => {
   const fetchImage = (path) => {
     console.log('fetching Image', path);
     axios
-      .get('http://' + Server.ip + '/api/images/' + path)
-      .then((res) => {
-        console.log('Received Image: ', res);
-        setImage(res);
+      .get('http://' + Server.ip + '/api/' + path)
+      .then(async (res) => {
+        console.log('Received Image: ', res.request.responseURL);
+        setUserInfo({...userInfo, uri: res.request.responseURL});
+        await AsyncStorage.setItem('@profilePicture', res.request.responseURL);
       })
       .catch((err) => {
         if (err) {
@@ -108,8 +108,7 @@ const SignUp = (props) => {
           />
         </View>
         <Text style={styles.profileName}>
-          {' '}
-          {userInfo.firstName} {userInfo.lastName}{' '}
+          {userInfo.firstName} {userInfo.lastName}
         </Text>
         <TouchableOpacity
           onPress={takePicture}
@@ -170,6 +169,7 @@ const styles = StyleSheet.create({
   },
 
   profileName: {
+    marginTop: 10,
     fontSize: 20,
     color: 'white',
   },

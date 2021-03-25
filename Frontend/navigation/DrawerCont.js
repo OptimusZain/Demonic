@@ -4,11 +4,11 @@ import {
   Text,
   StyleSheet,
   Image,
-  Button,
   TouchableOpacity,
   ScrollView,
   Dimensions,
 } from 'react-native';
+import {useIsDrawerOpen} from '@react-navigation/drawer';
 import DrawerItems from '../components/DrawerItems';
 import Colors from '../constants/Colors';
 import Icon from 'react-native-ionicons';
@@ -17,22 +17,22 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Server from '../constants/Server';
 
 const DrawerCont = (props) => {
-  const [user, setUser] = useState();
   const [admin, setAdmin] = useState(false);
-  const [userObj, setUserObj] = useState({});
+  const [userInfo, setUserInfo] = useState({});
 
-  const fetchUser = () => {
+  const fetchUser = (user) => {
     if (user !== undefined) {
-      axios.get('http://' + Server.ip + '/user/' + user).then((res) => {
+      axios.get('http://' + Server.ip + '/user/' + user).then(async (res) => {
         console.log(user);
 
         try {
-          setUserObj({
+          setUserInfo({
             id: res.data._id,
             email: res.data.Email,
             firstName: res.data.FirstName,
             lastName: res.data.LastName,
             role: res.data.Role,
+            uri: 'http://' + Server.ip + '/api/' + res.data.uri,
           });
 
           if (res.data.Role === 'Admin') {
@@ -48,24 +48,34 @@ const DrawerCont = (props) => {
   useEffect(() => {
     const getUser = async () => {
       await AsyncStorage.getItem('@Email').then((res) => {
-        setUser(res);
+        fetchUser(res);
       });
     };
     getUser();
-    fetchUser();
-  }, [user]);
+  }, []);
+
+  // if (useIsDrawerOpen()) {
+  //   async () =>
+  //     await AsyncStorage.getItem('@profilePicture').then((res) => {
+  //       setUserInfo({...userInfo, uri: res});
+  //     });
+  // }
 
   return (
     <View screen={styles.screen}>
       <View style={styles.titleContent}>
         <Image
           style={styles.Avatar}
-          source={require('../assets/default.png')}></Image>
+          source={
+            userInfo.uri
+              ? {uri: userInfo.uri}
+              : require('../assets/default.png')
+          }></Image>
         <View style={styles.Caption}>
           <Text style={styles.captionUsername}>
-            {userObj.firstName} {userObj.lastName}
+            {userInfo.firstName} {userInfo.lastName}
           </Text>
-          <Text style={styles.captionEmail}>{userObj.email}</Text>
+          <Text style={styles.captionEmail}>{userInfo.email}</Text>
         </View>
       </View>
       <ScrollView style={styles.mainContent}>

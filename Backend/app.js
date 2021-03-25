@@ -63,7 +63,7 @@ db.connect((err) => {
         Email: "zain@random.com",
         Password: hashedPassword,
         Role: "Admin",
-        uri: "public/images/default.png",
+        uri: "images/default.png",
       };
 
       db.getDB()
@@ -245,7 +245,8 @@ const upload = multer({
 app.post("/img", upload.single("image"), async (req, res) => {
   const img = req.file;
   const emailID = req.body.email;
-
+  const path = img.path.split("public/");
+  console.log("This is the new path", path[1]);
   if (!img) {
     console.log("error, please upload a file! ");
     res.json({
@@ -260,7 +261,7 @@ app.post("/img", upload.single("image"), async (req, res) => {
       .collection(collection)
       .findOneAndUpdate(
         { Email: emailID },
-        { $set: { uri: img.path } },
+        { $set: { uri: path[1] } },
         { returnOriginal: false },
         (err, result) => {
           if (err) {
@@ -268,7 +269,7 @@ app.post("/img", upload.single("image"), async (req, res) => {
           } else {
             console.log(result);
             res.json({
-              path: img.path,
+              path: path[1],
               upload: true,
               message: "File uploaded successfully",
               statusCode: 200,
